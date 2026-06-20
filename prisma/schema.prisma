@@ -1,0 +1,238 @@
+// Prisma schema for TekMarketing
+// Autonomous AI Marketing Manager
+
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"   // Force classic query engine. "binary" is the most reliable for avoiding Prisma 7 "client" engine mode with SQLite.
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// Brand Context (single source of truth for agent personality)
+// ============================================
+model BrandContext {
+  id        String   @id @default(cuid())
+  isActive  Boolean  @default(false)
+  // Core identity
+  companyName       String
+  voiceDescription  String   // Long-form brand voice, tone, personality
+  targetAudience    String   // Detailed description of ICP
+  productsServices  String   // Comma or newline separated
+  keyDifferentiators String? // What makes them unique
+
+  // Strategy
+  primaryGoals      String   // Marketing goals
+  contentPillars    String?  // Core topics/themes
+  preferredPlatforms String  // e.g. "X,LinkedIn,Instagram,Email"
+
+  // Guardrails
+  toneKeywords      String?  // Words that describe desired tone
+  doNotSay          String?  // Topics, phrases, or styles to avoid
+
+  // Extended brand profile (ported from TekSocial)
+  industry          String?
+  website           String?
+  visualStyle       String?
+  logoDataUrl       String?  // Base64 data URL for logo compositing
+  additionalContext String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  contentPackages ContentPackage[]
+
+  @@map("brand_context")
+}
+
+// ============================================
+// Multi-platform content packages (Content Studio)
+// ============================================
+model ContentPackage {
+  id             String   @id @default(cuid())
+  brandContextId String
+  brandContext   BrandContext @relation(fields: [brandContextId], references: [id], onDelete: Cascade)
+
+  topic          String
+  provider       String   // openai | anthropic | xai | google
+  platforms      Json     // SocialPlatform[]
+  strategyNote   String
+  agentReasoning String
+  content        Json     // PlatformContent object
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandContextId, createdAt])
+  @@map("content_packages")
+}
+
+// ============================================
+// Content Items (the heart of the calendar)
+// ============================================
+enum Platform {
+  X
+  LINKEDIN
+  INSTAGRAM
+  EMAIL
+  BLOG
+}
+
+enum ContentFormat {
+  POST
+  THREAD
+  CAPTION
+  NEWSLETTER
+  BLOG_IDEA
+  VIDEO_SCRIPT
+}
+
+enum ContentStatus {
+  IDEA
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  SCHEDULED
+  READY_TO_PUBLISH
+  PUBLISHED
+  REJECTED
+  ARCHIVED
+}
+
+model ContentItem {
+  id          String   @id @default(cuid())
+  platform    Platform
+  format      ContentFormat
+  title       String?  // Optional headline / subject
+  body        String   // Main content (thread lines separated by \n\n or JSON for complex)
+  suggestedMedia String? // Ideas for images/video
+
+  // Scheduling
+  scheduledFor DateTime?
+
+  // Agent intelligence
+  agentReasoning String?   // Why the agent chose this + expected outcome
+  confidence     Float?    // 0.0 - 1.0
+
+  // Workflow state
+  status      ContentStatus @default(DRAFT)
+  humanFeedback String?     // Notes from human reviewer
+
+  // Publishing & Performance
+  publishedAt DateTime?
+  performance Json?         // { likes, impressions, clicks, comments, ... }
+
+  // Provenance
+  createdBy   String   @default("agent") // "agent" | "user"
+  approvedBy  String?
+  approvedAt  DateTime?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  activityLogs ActivityLog[]
+
+  @@index([status, scheduledFor])
+  @@index([platform, status])
+  @@map("content_items")
+}
+
+// ============================================
+// Immutable Activity Log (agent memory + audit trail)
+// ============================================
+enum ActivityType {
+  AGENT_PLANNING_STARTED
+  AGENT_PLANNING_COMPLETED
+  CONTENT_GENERATED
+  CONTENT_REGENERATED
+  CONTENT_APPROVED
+  CONTENT_REJECTED
+  CONTENT_SCHEDULED
+  CONTENT_PUBLISHED
+  PERFORMANCE_RECORDED
+  BRAND_UPDATED
+  AGENT_PAUSED
+  AGENT_RESUMED
+}
+
+model ActivityLog {
+  id          String      @id @default(cuid())
+  timestamp   DateTime    @default(now())
+  type        ActivityType
+  summary     String
+  details     Json?       // Full context, reasoning, before/after where useful
+
+  contentItemId String?
+  contentItem   ContentItem? @relation(fields: [contentItemId], references: [id], onDelete: SetNull)
+
+  agentRunId  String?
+  agentRun    AgentRun?   @relation(fields: [agentRunId], references: [id], onDelete: SetNull)
+
+  @@index([timestamp])
+  @@map("activity_logs")
+}
+
+// ============================================
+// Agent Run Records (for stateful memory & debugging)
+// ============================================
+model AgentRun {
+  id            String   @id @default(cuid())
+  startedAt     DateTime @default(now())
+  completedAt   DateTime?
+  trigger       String   // "scheduled" | "manual" | "webhook"
+  status        String   // "running" | "completed" | "failed"
+
+  // What the agent saw
+  contextSnapshot Json?
+
+  // What it decided
+  goals         Json?
+  proposals     Json?   // Number of items proposed, etc.
+
+  summary       String?
+
+  activityLogs ActivityLog[]
+
+  @@index([startedAt])
+  @@map("agent_runs")
+}
+
+// ============================================
+// API Usage Tracking (for cost & monitoring)
+// ============================================
+model ApiUsageLog {
+  id            String   @id @default(cuid())
+  provider      String   @default("xai")
+  model         String
+  purpose       String   // "planning_cycle", "regenerate", "brand_analysis", etc.
+  promptTokens  Int?
+  completionTokens Int?
+  totalTokens   Int?
+  estimatedCostUsd Float?   // rough estimate
+
+  relatedContentId String?
+  relatedAgentRunId String?
+
+  createdAt     DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([purpose])
+  @@map("api_usage_logs")
+}
+
+// ============================================
+// App Settings (encrypted secrets, user prefs)
+// ============================================
+model AppSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   // Encrypted at rest for sensitive values
+  updatedAt DateTime @updatedAt
+
+  @@map("app_settings")
+}
+

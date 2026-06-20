@@ -42,7 +42,11 @@
 
 ---
 
-## Vercel + Neon (Recommended SaaS-style Self-Host)
+## Vercel + Neon (`app.tekhero.us`)
+
+**Step-by-step:** [VERCEL_SETUP.md](VERCEL_SETUP.md) — Neon, env vars, Cloudflare CNAME, seed.
+
+## Vercel + Neon (Reference)
 
 ### 1. Database
 

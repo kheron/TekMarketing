@@ -1,0 +1,19 @@
+services:
+  tekmarketing:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "file:/app/prisma/dev.db"
+      SETTINGS_ENCRYPTION_KEY: "${SETTINGS_ENCRYPTION_KEY:-0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef}"
+      # Optional — required for live agent runs and generation
+      XAI_API_KEY: "${XAI_API_KEY:-}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      ANTHROPIC_API_KEY: "${ANTHROPIC_API_KEY:-}"
+      GOOGLE_AI_API_KEY: "${GOOGLE_AI_API_KEY:-}"
+    volumes:
+      - tekmarketing-data:/app/prisma
+    restart: unless-stopped
+
+volumes:
+  tekmarketing-data:

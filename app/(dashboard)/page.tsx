@@ -118,7 +118,7 @@ export default function TekMarketingDashboard() {
 
   if (!data) {
     return (
-      <div className="max-w-7xl mx-auto px-8 py-8">
+      <div className="dashboard-page max-w-7xl mx-auto w-full">
         <div className="flex items-center gap-3 text-[#71717a]">
           <RefreshCw className="w-4 h-4 animate-spin" /> Loading agent dashboard...
         </div>
@@ -131,12 +131,12 @@ export default function TekMarketingDashboard() {
     : 'never'
 
   return (
-    <div className="max-w-7xl mx-auto px-8 py-8">
-      <div className="flex items-center justify-between mb-8">
-        <div>
+    <div className="dashboard-page max-w-7xl mx-auto w-full">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between mb-6 sm:mb-8">
+        <div className="min-w-0">
           <div className="text-[10px] uppercase tracking-[2px] text-[#71717a] mb-1">Dashboard</div>
-          <div className="flex items-center gap-3">
-            <h1 className="text-3xl font-semibold tracking-[-1px]">Marketing Command Center</h1>
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <h1 className="text-2xl sm:text-3xl font-semibold tracking-[-1px]">Marketing Command Center</h1>
             <div className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-medium tracking-widest flex items-center gap-1.5 border border-emerald-500/20">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               LIVE
@@ -147,10 +147,10 @@ export default function TekMarketingDashboard() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
           <button
             onClick={() => loadData()}
-            className="btn btn-ghost h-10 px-4 text-xs border border-[#27272a] hover:border-[#3f3f46]"
+            className="btn btn-ghost h-10 px-4 text-xs border border-[#27272a] hover:border-[#3f3f46] flex-1 sm:flex-none"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             Refresh
@@ -159,7 +159,7 @@ export default function TekMarketingDashboard() {
           <button
             onClick={runPlanningCycle}
             disabled={isRunningCycle || !data.hasBrand}
-            className="btn btn-primary h-10 px-6 flex items-center gap-2 text-sm font-medium disabled:opacity-70"
+            className="btn btn-primary h-10 px-6 flex items-center gap-2 text-sm font-medium disabled:opacity-70 flex-1 sm:flex-none justify-center"
           >
             {isRunningCycle ? (
               <>
@@ -176,7 +176,7 @@ export default function TekMarketingDashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
         <div className="card p-5">
           <div className="text-xs uppercase tracking-[1.5px] text-[#71717a] mb-2">Pending Your Review</div>
           <div className="text-4xl font-semibold tracking-tight tabular-nums">{data.pendingCount}</div>
@@ -314,12 +314,12 @@ export default function TekMarketingDashboard() {
       </div>
 
       {!data.hasBrand && (
-        <div className="mt-8 p-6 border border-[#27272a] rounded-3xl bg-[#111113] flex items-center justify-between">
+        <div className="mt-8 p-4 sm:p-6 border border-[#27272a] rounded-3xl bg-[#111113] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <div className="font-semibold">The agent has no brand context yet.</div>
             <div className="text-sm text-[#71717a]">Without it, every recommendation will be generic.</div>
           </div>
-          <Link href="/businesses" className="btn btn-primary whitespace-nowrap">
+          <Link href="/businesses" className="btn btn-primary whitespace-nowrap w-full sm:w-auto justify-center">
             Set Up Business Profile →
           </Link>
         </div>
@@ -342,11 +342,11 @@ function ActivityItem({ log }: { log: ActivityLogItem }) {
   const config = typeConfig[log.type] || { label: log.type, color: 'text-[#a1a1aa] bg-[#27272a]' }
 
   return (
-    <div className="px-5 py-4 hover:bg-[#111113] transition-colors group flex gap-4">
-      <div className="text-xs text-[#52525b] w-[78px] shrink-0 pt-0.5 tabular-nums">{time}</div>
+    <div className="px-4 sm:px-5 py-4 hover:bg-[#111113] transition-colors group flex flex-col sm:flex-row gap-2 sm:gap-4">
+      <div className="text-xs text-[#52525b] sm:w-[78px] shrink-0 pt-0.5 tabular-nums">{time}</div>
 
       <div className="flex-1 min-w-0">
-        <div className="flex items-center gap-2 mb-1">
+        <div className="flex flex-wrap items-center gap-2 mb-1">
           <span className={`text-[10px] font-medium px-2 py-px rounded ${config.color}`}>
             {config.label}
           </span>

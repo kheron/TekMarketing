@@ -128,7 +128,7 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-3xl mx-auto w-full">
       <PageHeader
         eyebrow="CONFIGURATION"
         title="Settings"

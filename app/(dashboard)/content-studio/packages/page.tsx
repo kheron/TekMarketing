@@ -4,7 +4,7 @@ import { PackageLibrary } from '@/components/studio/PackageLibrary'
 
 export default function PackagesPage() {
   return (
-    <div className="max-w-4xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-4xl mx-auto w-full">
       <PageHeader
         eyebrow="CONTENT STUDIO"
         title="Saved packages"

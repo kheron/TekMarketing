@@ -4,7 +4,7 @@ import { StudioGenerate } from '@/components/studio/StudioGenerate'
 
 export default function GeneratePage() {
   return (
-    <div className="max-w-5xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-5xl mx-auto w-full">
       <PageHeader
         eyebrow="CONTENT STUDIO"
         title="Generate & copy"

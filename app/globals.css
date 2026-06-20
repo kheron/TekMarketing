@@ -236,6 +236,37 @@ body {
   box-shadow: 8px 0 32px -8px rgb(0 0 0 / 0.35);
 }
 
+.dashboard-page {
+  padding: 1rem;
+}
+
+@media (min-width: 640px) {
+  .dashboard-page {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-page {
+    padding: 2rem;
+  }
+}
+
+.scroll-tabs {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .sonner-toast-mobile {
+    max-width: calc(100vw - 2rem);
+  }
+}
+
 /* Modal */
 .modal {
   background: var(--bg-900);

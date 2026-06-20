@@ -38,7 +38,7 @@ export default function CalendarPage() {
   )
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-5xl mx-auto w-full">
       <PageHeader
         eyebrow="CONTENT STUDIO"
         title="Calendar"

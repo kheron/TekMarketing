@@ -27,7 +27,7 @@ export default function EditBusinessPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-3xl mx-auto w-full">
       <PageHeader eyebrow="EDIT PROFILE" title={initialData.companyName || 'Business Profile'} description="Update brand context. Changes apply to the next planning cycle." />
       <BusinessForm businessId={id} initialData={initialData} onSaved={() => router.push('/businesses')} />
     </div>

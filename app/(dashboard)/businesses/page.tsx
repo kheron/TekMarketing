@@ -60,7 +60,7 @@ export default function BusinessesPage() {
   }
 
   return (
-    <div className="max-w-5xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-5xl mx-auto w-full">
       <PageHeader
         eyebrow="MULTI-BRAND"
         title="Businesses"

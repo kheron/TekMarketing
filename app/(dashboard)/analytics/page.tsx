@@ -40,7 +40,7 @@ export default function AnalyticsPage() {
   }, [])
 
   return (
-    <div className="max-w-6xl mx-auto px-8 py-10">
+    <div className="dashboard-page max-w-6xl mx-auto w-full">
       <Link href="/" className="flex items-center gap-2 text-[#a1a1aa] hover:text-white mb-6 text-sm">
         <ArrowLeft className="w-4 h-4" /> Back to Dashboard
       </Link>

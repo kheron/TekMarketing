@@ -61,7 +61,7 @@ export function PackageLibrary() {
         <div className="space-y-3">
           {packages.map((pkg) => (
             <div key={pkg.id} className="card p-5 hover:border-[#3f3f46] transition-colors">
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <div className="text-sm text-[#71717a] mb-1">
                     {pkg.businessName} ·{' '}
@@ -81,7 +81,7 @@ export function PackageLibrary() {
                 </div>
                 <Link
                   href={`/content-studio/generate?package=${pkg.id}`}
-                  className="btn btn-secondary h-8 px-3 text-xs shrink-0"
+                  className="btn btn-secondary h-9 px-3 text-xs shrink-0 w-full sm:w-auto justify-center"
                 >
                   <ExternalLink className="w-3 h-3" />
                   Open &amp; copy

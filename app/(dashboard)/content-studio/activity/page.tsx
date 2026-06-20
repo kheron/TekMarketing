@@ -35,7 +35,7 @@ export default function ActivityPage() {
   }, [])
 
   return (
-    <div className="max-w-4xl mx-auto px-8 py-8">
+    <div className="dashboard-page max-w-4xl mx-auto w-full">
       <PageHeader
         eyebrow="CONTENT STUDIO"
         title="Activity"

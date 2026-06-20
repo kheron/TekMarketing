@@ -38,7 +38,7 @@ export function TekheroFooter({ variant = "compact" }: TekheroFooterProps) {
   }
 
   return (
-    <footer className="border-t border-[#27272a] bg-[#09090b] px-6 py-4">
+    <footer className="border-t border-[#27272a] bg-[#09090b] px-4 sm:px-6 py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-[12px] text-[#71717a]">
         <div>
           <span className="text-[#a1a1aa] font-medium">TekMarketing</span>

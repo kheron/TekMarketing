@@ -24,6 +24,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -33,10 +39,11 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}>
       <body className="min-h-full bg-[#09090b] text-[#f4f4f5] flex flex-col">
         {children}
-        <Toaster 
-          position="top-center" 
-          richColors 
-          closeButton 
+        <Toaster
+          position="top-center"
+          richColors
+          closeButton
+          toastOptions={{ className: 'sonner-toast-mobile' }}
           className="sonner-toaster"
         />
       </body>

@@ -206,7 +206,7 @@ export function ContentPackageView({
 
   return (
     <div className="card overflow-hidden">
-      <div className="p-6 border-b border-[#27272a] flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+      <div className="p-4 sm:p-6 border-b border-[#27272a] flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <h3 className="font-semibold text-lg">Content package</h3>
@@ -234,13 +234,13 @@ export function ContentPackageView({
         </div>
       </div>
 
-      <div className="px-6 pt-4 flex flex-wrap gap-2 border-b border-[#27272a] pb-4">
+      <div className="px-4 sm:px-6 pt-4 flex gap-2 border-b border-[#27272a] pb-4 overflow-x-auto scroll-tabs">
         {tabs.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors shrink-0 ${
               activeTab === tab.id
                 ? 'bg-blue-500/15 text-blue-300'
                 : 'text-[#71717a] hover:bg-[#27272a] hover:text-[#f4f4f5]'
@@ -251,7 +251,7 @@ export function ContentPackageView({
         ))}
       </div>
 
-      <div className="p-6 space-y-6">
+      <div className="p-4 sm:p-6 space-y-6">
         {activeTab !== 'overview' && onRegenerate && (
           <div className="flex justify-end">
             <button

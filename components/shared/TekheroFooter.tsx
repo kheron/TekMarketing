@@ -1,6 +1,7 @@
 import {
   TEKHERO_COMMERCIAL_DOCS_URL,
   TEKHERO_GITHUB_URL,
+  TEKHERO_PRODUCT_PATH,
   TEKHERO_URL,
 } from "@/lib/config/tekhero";
 
@@ -24,12 +25,10 @@ export function TekheroFooter({ variant = "compact" }: TekheroFooterProps) {
         <span>Open Core</span>
         <span className="mx-1.5 text-[#3f3f46]">·</span>
         <a
-          href={TEKHERO_COMMERCIAL_DOCS_URL}
-          target="_blank"
-          rel="noopener noreferrer"
+          href={TEKHERO_PRODUCT_PATH}
           className="text-blue-400/80 hover:text-blue-400 transition-colors"
         >
-          Commercial license
+          Plans
         </a>
       </div>
     );
@@ -61,12 +60,10 @@ export function TekheroFooter({ variant = "compact" }: TekheroFooterProps) {
             GitHub
           </a>
           <a
-            href={TEKHERO_COMMERCIAL_DOCS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={TEKHERO_PRODUCT_PATH}
             className="hover:text-[#a1a1aa] transition-colors"
           >
-            Commercial licensing
+            Product & pricing
           </a>
           <a
             href={TEKHERO_URL}

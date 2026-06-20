@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { licenseGuardResponse } from '@/lib/api/license-guard'
 import { z } from 'zod'
 import { callAI } from '@/lib/ai/call-ai'
 import { AIProviderSchema } from '@/lib/agent/types'
@@ -6,6 +7,9 @@ import { AIProviderSchema } from '@/lib/agent/types'
 const RequestSchema = z.object({ provider: AIProviderSchema })
 
 export async function POST(request: NextRequest) {
+  const blocked = licenseGuardResponse()
+  if (blocked) return blocked
+
   try {
     const body = await request.json()
     const parsed = RequestSchema.safeParse(body)

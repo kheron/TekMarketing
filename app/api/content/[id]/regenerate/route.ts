@@ -1,10 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { licenseGuardResponse } from '@/lib/api/license-guard'
 import { regenerateContentWithFeedback } from '@/lib/agent/orchestrator'
 
 export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const blocked = licenseGuardResponse()
+  if (blocked) return blocked
+
   try {
     const { id } = await params
     const body = await request.json()

@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Eye, EyeOff, Key, Loader2, Shield, Trash2, Zap } from 'lucide-react'
 import { toast } from 'sonner'
@@ -10,6 +11,7 @@ import type { AIProvider } from '@/lib/agent/types'
 import {
   TEKHERO_COMMERCIAL_DOCS_URL,
   TEKHERO_CONTACT_EMAIL,
+  TEKHERO_PRODUCT_PATH,
   TEKHERO_URL,
 } from '@/lib/config/tekhero'
 
@@ -32,6 +34,10 @@ interface ProductConfig {
   commercialMode: boolean
   licenseKeyConfigured: boolean
   telemetryOptIn: boolean
+  licenseTier: string
+  licenseBlocked: boolean
+  licenseMessage: string | null
+  productUrl: string
 }
 
 export default function SettingsPage() {
@@ -273,9 +279,9 @@ export default function SettingsPage() {
             {productConfig && (
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="rounded-lg bg-[#111113] border border-[#27272a] px-3 py-2">
-                  <div className="text-[#52525b]">Edition</div>
+                  <div className="text-[#52525b]">License tier</div>
                   <div className="text-[#f4f4f5] font-medium mt-0.5 capitalize">
-                    {productConfig.edition.replace('-', ' ')}
+                    {productConfig.licenseTier.replace('-', ' ')}
                   </div>
                 </div>
                 <div className="rounded-lg bg-[#111113] border border-[#27272a] px-3 py-2">
@@ -284,10 +290,19 @@ export default function SettingsPage() {
                     {productConfig.licenseKeyConfigured ? 'Configured' : 'Not set'}
                   </div>
                 </div>
+                {productConfig.licenseBlocked && (
+                  <div className="col-span-2 rounded-lg bg-red-950/30 border border-red-900/40 px-3 py-2 text-red-200">
+                    Agent & generation APIs are blocked until a license key or Open Core
+                    acknowledgment is configured.
+                  </div>
+                )}
               </div>
             )}
 
             <div className="flex flex-wrap gap-3 text-sm">
+              <Link href={TEKHERO_PRODUCT_PATH} className="text-blue-400 hover:underline">
+                Product & pricing →
+              </Link>
               <a
                 href={`mailto:${TEKHERO_CONTACT_EMAIL}`}
                 className="text-blue-400 hover:underline"
@@ -300,7 +315,7 @@ export default function SettingsPage() {
                 rel="noopener noreferrer"
                 className="text-[#a1a1aa] hover:text-white transition-colors"
               >
-                tekhero.us →
+                tekhero.us
               </a>
             </div>
 

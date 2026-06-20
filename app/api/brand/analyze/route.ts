@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { licenseGuardResponse } from '@/lib/api/license-guard'
 import { getXaiApiKey } from '@/lib/settings/api-key'
 
 export async function POST(request: NextRequest) {
+  const blocked = licenseGuardResponse()
+  if (blocked) return blocked
+
   let { url } = await request.json()
   if (!url) return NextResponse.json({ error: 'URL is required' }, { status: 400 })
   const apiKey = await getXaiApiKey()

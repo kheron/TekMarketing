@@ -181,6 +181,10 @@ TekMarketing is an **open-core product** by [TEKHERO](https://tekhero.us). The p
 | `TEKHERO_LICENSE_KEY` | License validation stub (enforcement expands later) |
 | `TEKHERO_EDITION` | `open-core` (default) or `commercial` |
 | `TELEMETRY_OPT_IN` | Privacy-respecting usage telemetry (`lib/telemetry/`) |
+| `TEKHERO_OPEN_CORE_ACK` | Personal non-commercial production waiver |
+| `TEKHERO_LICENSE_KEY` | `TKM-XXXX-XXXX-XXXX` — validated in `lib/config/license.ts` |
+
+License enforcement: `lib/api/license-guard.ts` blocks agent/generation APIs in unlicensed production. Startup logs via `instrumentation.ts`.
 
 ### Where commercial code should live
 - **Core agent behavior** (orchestrator, Zod schemas, prompts): stays in `lib/agent/` in open core unless explicitly gated.

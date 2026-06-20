@@ -10,7 +10,7 @@
 
 **Strategic AI marketing that plans, generates, and proposes — with human approval on every publish.**
 
-[Live Demo](#live-demo) · [Quick Start](#quick-start-personal--non-commercial) · [Commercial Licensing](COMMERCIAL.md) · [Deployment](DEPLOYMENT.md) · [Roadmap](ROADMAP.md)
+[Product](https://tekhero.us/tekmarketing) · [Live Demo](#live-demo) · [Quick Start](#quick-start-personal--non-commercial) · [Commercial Licensing](COMMERCIAL.md) · [Deployment](DEPLOYMENT.md)
 
 ---
 
@@ -235,7 +235,7 @@ See **[ROADMAP.md](ROADMAP.md)** for open-core vs. commercial feature split.
 <p align="center">
   <strong>Built by <a href="https://tekhero.us">Korey Heron</a> / <a href="https://tekhero.us">TEKHERO</a></strong><br>
   <a href="https://tekhero.us">tekhero.us</a> ·
-  <a href="https://www.linkedin.com/in/koreyheron">LinkedIn</a> ·
+  <a href="/tekmarketing">Product</a> ·
   <a href="https://github.com/kheron/TekMarketing">GitHub</a> ·
   <a href="COMMERCIAL.md">Commercial</a>
 </p>

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { licenseGuardResponse } from '@/lib/api/license-guard'
 import { z } from 'zod'
 import { prisma } from '@/lib/db/prisma'
 import { brandContextToBusinessProfile } from '@/lib/agent/brand-adapter'
@@ -13,6 +14,9 @@ const RequestSchema = z.object({
 })
 
 export async function POST(request: NextRequest) {
+  const blocked = licenseGuardResponse()
+  if (blocked) return blocked
+
   try {
     const body = await request.json()
     const parsed = RequestSchema.safeParse(body)

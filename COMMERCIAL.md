@@ -86,13 +86,23 @@ We typically respond within **1–2 business days** with licensing options and n
 
 ## License Key (Self-Hosted Commercial)
 
-Commercial self-hosted customers receive a `TEKHERO_LICENSE_KEY` for deployment validation (enforcement expands in future releases). Set in your environment:
+Commercial customers receive a `TEKHERO_LICENSE_KEY` in the format `TKM-XXXX-XXXX-XXXX`.
+
+**Production enforcement:** Without a valid license key or `TEKHERO_OPEN_CORE_ACK=true` (personal non-commercial only), agent and generation APIs return `402 License required`.
 
 ```env
 COMMERCIAL_MODE=true
-TEKHERO_LICENSE_KEY=your_license_key_here
+TEKHERO_LICENSE_KEY=TKM-AB12-CD34-EF56GH78
 TEKHERO_EDITION=commercial
 ```
+
+Personal non-commercial production (e.g. portfolio demo):
+
+```env
+TEKHERO_OPEN_CORE_ACK=true
+```
+
+**Product landing page:** [/tekmarketing](/tekmarketing) — deploy at `https://tekhero.us/tekmarketing` with `NEXT_PUBLIC_TEKHERO_PRODUCT_URL=https://tekhero.us/tekmarketing`
 
 ---
 

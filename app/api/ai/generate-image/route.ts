@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { licenseGuardResponse } from '@/lib/api/license-guard'
 import { z } from 'zod'
 import { generateImage } from '@/lib/ai/generate-image'
 import { getApiKey } from '@/lib/settings/api-key'
@@ -9,6 +10,9 @@ import { AIProviderSchema } from '@/lib/agent/types'
 const RequestSchema = z.object({ prompt: z.string().min(10), provider: AIProviderSchema.optional(), aspectRatio: z.enum(['square', 'landscape', 'portrait']).optional() })
 
 export async function POST(request: NextRequest) {
+  const blocked = licenseGuardResponse()
+  if (blocked) return blocked
+
   try {
     const body = await request.json()
     const parsed = RequestSchema.safeParse(body)

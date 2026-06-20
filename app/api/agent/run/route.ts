@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
+import { licenseGuardResponse } from '@/lib/api/license-guard'
 import { runPlanningCycle } from '@/lib/agent/orchestrator'
 
 export async function POST() {
+  const blocked = licenseGuardResponse()
+  if (blocked) return blocked
+
   let lastError: Error | null = null
 
   for (let attempt = 1; attempt <= 2; attempt++) {

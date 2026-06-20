@@ -1,5 +1,6 @@
 'use client'
 
+import { TekheroFooter } from '@/components/shared/TekheroFooter'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
@@ -49,7 +50,9 @@ export function AppSidebar() {
           </div>
           <div>
             <div className="font-semibold tracking-[-0.3px] text-[15px] leading-none">TekMarketing</div>
-            <div className="text-[9px] text-[#52525b] mt-0.5 tracking-widest">CONTENT STUDIO</div>
+            <div className="text-[9px] text-[#52525b] mt-0.5 tracking-widest uppercase">
+              Open Core · TEKHERO
+            </div>
           </div>
         </div>
       </div>
@@ -117,6 +120,9 @@ export function AppSidebar() {
 
       {/* Footer status */}
       <div className="px-4 py-4 border-t border-[#27272a] space-y-3">
+        <div className="px-1">
+          <TekheroFooter variant="compact" />
+        </div>
         <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#111113] border border-[#27272a]">
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" />
           <span className="text-[11px] text-[#a1a1aa]">Agent • Daily 07:00 UTC</span>

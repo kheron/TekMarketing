@@ -1,21 +1,54 @@
-MIT License
+TEKHERO Open Core License 1.0
 
-Copyright (c) 2026 TEKHERO
+Copyright (c) 2026 TEKHERO (https://tekhero.us)
+All rights reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, and distribute the Software for **Personal, Educational, and
+Non-Commercial** purposes, subject to the conditions below.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+## Permitted Use (No License Fee Required)
+
+You may use, modify, and self-host this Software without a paid license when:
+
+- Learning, teaching, or academic research
+- Personal projects with no commercial intent
+- Non-profit or community use
+- Evaluation and proof-of-concept (up to 30 days for business evaluation)
+- Contributing to the public open-source repository
+
+## Commercial Use Requires a Paid TEKHERO License
+
+The permissions above **do not** extend to **Commercial Use**, including but not
+limited to:
+
+- Offering TekMarketing (or derivatives) as a hosted SaaS or managed service
+- White-label deployment for clients or resale
+- Delivering the Software to paying clients as part of consulting or agency work
+- Internal production use by revenue-generating businesses (beyond evaluation)
+- Removing or obscuring TEKHERO attribution in commercial deployments
+
+**Commercial use requires a paid TEKHERO license.**
+
+Contact: **info@tekhero.us**
+Website: **https://tekhero.us**
+
+See [COMMERCIAL.md](COMMERCIAL.md) for tiers, pricing guidance, and purchase options.
+
+## Conditions
+
+1. The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+2. Redistributions in source or binary form must retain this license text.
+3. You may not use the TEKHERO or TekMarketing name to imply endorsement of
+   unofficial forks without written permission.
+
+## Disclaimer
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL TEKHERO
+OR THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN
+AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

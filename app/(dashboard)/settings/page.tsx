@@ -4,8 +4,14 @@ import { useEffect, useState } from 'react'
 import { Eye, EyeOff, Key, Loader2, Shield, Trash2, Zap } from 'lucide-react'
 import { toast } from 'sonner'
 import { PageHeader } from '@/components/dashboard/PageHeader'
+import { TekheroFooter } from '@/components/shared/TekheroFooter'
 import { AI_PROVIDERS } from '@/lib/constants/ai-providers'
 import type { AIProvider } from '@/lib/agent/types'
+import {
+  TEKHERO_COMMERCIAL_DOCS_URL,
+  TEKHERO_CONTACT_EMAIL,
+  TEKHERO_URL,
+} from '@/lib/config/tekhero'
 
 interface ProviderStatus {
   id: AIProvider
@@ -21,16 +27,28 @@ interface SettingsData {
   providers: ProviderStatus[]
 }
 
+interface ProductConfig {
+  edition: 'open-core' | 'commercial'
+  commercialMode: boolean
+  licenseKeyConfigured: boolean
+  telemetryOptIn: boolean
+}
+
 export default function SettingsPage() {
   const [settings, setSettings] = useState<SettingsData | null>(null)
+  const [productConfig, setProductConfig] = useState<ProductConfig | null>(null)
   const [keys, setKeys] = useState<Partial<Record<AIProvider, string>>>({})
   const [showKey, setShowKey] = useState<Partial<Record<AIProvider, boolean>>>({})
   const [savingProvider, setSavingProvider] = useState<AIProvider | null>(null)
   const [testingProvider, setTestingProvider] = useState<AIProvider | null>(null)
 
   async function load() {
-    const res = await fetch('/api/settings')
-    if (res.ok) setSettings(await res.json())
+    const [settingsRes, configRes] = await Promise.all([
+      fetch('/api/settings'),
+      fetch('/api/config'),
+    ])
+    if (settingsRes.ok) setSettings(await settingsRes.json())
+    if (configRes.ok) setProductConfig(await configRes.json())
   }
 
   useEffect(() => {
@@ -228,6 +246,67 @@ export default function SettingsPage() {
             </div>
           )
         })}
+      </div>
+
+      <div className="card p-6 mt-8 space-y-4">
+        <div className="flex items-start gap-3">
+          <Shield className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+          <div className="space-y-3 flex-1">
+            <div>
+              <div className="font-medium text-sm">TEKHERO Open Core</div>
+              <p className="text-sm text-[#71717a] mt-1 leading-relaxed">
+                TekMarketing is free for personal, educational, and non-commercial use.
+                Business production, client delivery, SaaS hosting, and white-label
+                deployments require a{' '}
+                <a
+                  href={TEKHERO_COMMERCIAL_DOCS_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:underline"
+                >
+                  commercial TEKHERO license
+                </a>
+                .
+              </p>
+            </div>
+
+            {productConfig && (
+              <div className="grid grid-cols-2 gap-3 text-xs">
+                <div className="rounded-lg bg-[#111113] border border-[#27272a] px-3 py-2">
+                  <div className="text-[#52525b]">Edition</div>
+                  <div className="text-[#f4f4f5] font-medium mt-0.5 capitalize">
+                    {productConfig.edition.replace('-', ' ')}
+                  </div>
+                </div>
+                <div className="rounded-lg bg-[#111113] border border-[#27272a] px-3 py-2">
+                  <div className="text-[#52525b]">License key</div>
+                  <div className="text-[#f4f4f5] font-medium mt-0.5">
+                    {productConfig.licenseKeyConfigured ? 'Configured' : 'Not set'}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="flex flex-wrap gap-3 text-sm">
+              <a
+                href={`mailto:${TEKHERO_CONTACT_EMAIL}`}
+                className="text-blue-400 hover:underline"
+              >
+                {TEKHERO_CONTACT_EMAIL}
+              </a>
+              <a
+                href={TEKHERO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#a1a1aa] hover:text-white transition-colors"
+              >
+                tekhero.us →
+              </a>
+            </div>
+
+            <TekheroFooter variant="compact" />
+          </div>
+        </div>
       </div>
     </div>
   )

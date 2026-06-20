@@ -163,3 +163,37 @@ When the correct behavior is ambiguous:
 - If still unclear, document the assumption in the code and surface it in the UI.
 
 This project succeeds when the marketing agent feels like a **trusted, strategic colleague** — not an unpredictable content generator.
+
+---
+
+## Open Core & Commercial Extensions (TEKHERO)
+
+TekMarketing is an **open-core product** by [TEKHERO](https://tekhero.us). The public GitHub repository contains the core agent, studio, and HITL workflows. Commercial capabilities may ship separately or behind license configuration.
+
+### Licensing boundary
+- **Open Core (this repo):** Personal, educational, non-commercial use per [LICENSE](LICENSE).
+- **Commercial:** Business production, client delivery, SaaS hosting, and white-label require a [TEKHERO license](COMMERCIAL.md). Contact: info@tekhero.us
+
+### Configuration flags (`lib/config/tekhero.ts`)
+| Variable | Purpose |
+|----------|---------|
+| `COMMERCIAL_MODE` | Marks a licensed business deployment |
+| `TEKHERO_LICENSE_KEY` | License validation stub (enforcement expands later) |
+| `TEKHERO_EDITION` | `open-core` (default) or `commercial` |
+| `TELEMETRY_OPT_IN` | Privacy-respecting usage telemetry (`lib/telemetry/`) |
+
+### Where commercial code should live
+- **Core agent behavior** (orchestrator, Zod schemas, prompts): stays in `lib/agent/` in open core unless explicitly gated.
+- **Premium-only features** (SSO, multi-tenant, white-label theming, license enforcement): prefer `lib/commercial/` or TEKHERO private modules — never weaken open-core HITL guarantees.
+- **UI branding:** `components/shared/TekheroFooter.tsx` — do not remove attribution in open core.
+
+### Rules for commercial features
+1. Human-in-the-loop and audit trail requirements apply to **all** editions.
+2. Do not merge license-bypass or silent-publish paths into open core.
+3. Document commercial-only behavior in [ROADMAP.md](ROADMAP.md) and [COMMERCIAL.md](COMMERCIAL.md).
+4. Open-core contributions must not expose TEKHERO customer secrets or proprietary prompts.
+
+### Sales & deployment docs
+- [COMMERCIAL.md](COMMERCIAL.md) — tiers and purchasing
+- [DEPLOYMENT.md](DEPLOYMENT.md) — production self-host guide
+- [CONTRIBUTING.md](CONTRIBUTING.md) — contribution boundaries

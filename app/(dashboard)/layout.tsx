@@ -1,4 +1,5 @@
 import { AppSidebar } from '@/components/dashboard/AppSidebar'
+import { TekheroFooter } from '@/components/shared/TekheroFooter'
 
 export default function DashboardLayout({
   children,
@@ -8,7 +9,10 @@ export default function DashboardLayout({
   return (
     <div className="min-h-screen bg-[#09090b] flex">
       <AppSidebar />
-      <main className="flex-1 min-w-0 overflow-x-hidden">{children}</main>
+      <div className="flex-1 min-w-0 flex flex-col">
+        <main className="flex-1 overflow-x-hidden">{children}</main>
+        <TekheroFooter variant="full" />
+      </div>
     </div>
   )
 }

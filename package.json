@@ -1,6 +1,29 @@
 {
   "name": "tekmarketing",
   "version": "0.1.0",
+  "description": "Open Core AI Marketing Agent by TEKHERO — strategic planning with human-in-the-loop approval",
+  "author": "Korey Heron <info@tekhero.us> (https://tekhero.us)",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://tekhero.us",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kheron/TekMarketing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kheron/TekMarketing/issues"
+  },
+  "keywords": [
+    "ai-agent",
+    "marketing-automation",
+    "human-in-the-loop",
+    "open-core",
+    "tekhero",
+    "nextjs",
+    "prisma",
+    "zod",
+    "llm",
+    "content-studio"
+  ],
   "private": false,
   "scripts": {
     "dev": "next dev",

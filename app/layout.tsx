@@ -16,8 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TekMarketing — AI Marketing Manager",
-  description: "Autonomous 24/7 AI marketing agent. Plans, creates, and schedules content with human approval on every publish.",
+  title: "TekMarketing — Open Core AI Marketing Agent by TEKHERO",
+  description:
+    "Strategic AI marketing agent with human-in-the-loop approval. Open Core by TEKHERO — planning, multi-platform content, and full audit trail.",
   icons: {
     icon: "/favicon.ico",
   },

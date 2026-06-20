@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   url = url.trim()
   if (!/^https?:\/\//i.test(url)) url = `https://${url}`
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'TekMarketingBot/1.0' } })
+    const res = await fetch(url, { headers: { 'User-Agent': 'TekMarketing/1.0 (TEKHERO; +https://tekhero.us)' } })
     if (!res.ok) throw new Error(`Failed to fetch website (status ${res.status})`)
     const html = await res.text()
     const titleMatch = html.match(/<title>(.*?)<\/title>/i)

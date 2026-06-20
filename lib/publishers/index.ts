@@ -1,3 +1,4 @@
+import type { ContentItem } from '@prisma/client'
 import { prisma } from '@/lib/db/prisma'
 
 export interface PublishResult {
@@ -26,17 +27,18 @@ export async function publishContent(itemId: string): Promise<PublishResult> {
       await prisma.activityLog.create({ data: { type: 'CONTENT_PUBLISHED', summary: `Published to ${item.platform}`, details: { contentItemId: itemId, platformPostId: result.platformPostId, url: result.url }, contentItemId: itemId } })
     }
     return result
-  } catch (error: any) {
-    return { success: false, error: error.message || 'Unknown publishing error' }
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : 'Unknown publishing error'
+    return { success: false, error: message }
   }
 }
 
-async function publishToX(item: any): Promise<PublishResult> {
+async function publishToX(_item: ContentItem): Promise<PublishResult> {
   await new Promise((res) => setTimeout(res, 800))
   return { success: true, platformPostId: 'simulated_' + Date.now(), url: `https://x.com/user/status/simulated_${Date.now()}` }
 }
 
-async function publishToLinkedIn(item: any): Promise<PublishResult> {
+async function publishToLinkedIn(_item: ContentItem): Promise<PublishResult> {
   await new Promise((res) => setTimeout(res, 800))
   return { success: true, platformPostId: 'li_sim_' + Date.now(), url: `https://linkedin.com/feed/update/simulated_${Date.now()}` }
 }

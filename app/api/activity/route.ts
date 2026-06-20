@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import type { ActivityType, Prisma } from '@prisma/client'
 import { prisma } from '@/lib/db/prisma'
 
 export async function GET(request: NextRequest) {
@@ -8,7 +9,7 @@ export async function GET(request: NextRequest) {
   const type = searchParams.get('type') || undefined
 
   try {
-    const where = type ? { type: type as any } : {}
+    const where: Prisma.ActivityLogWhereInput = type ? { type: type as ActivityType } : {}
 
     const [logs, total] = await Promise.all([
       prisma.activityLog.findMany({

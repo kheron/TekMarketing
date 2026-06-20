@@ -23,12 +23,14 @@ export async function POST(request: NextRequest) {
     let parsed
     try { parsed = JSON.parse(raw.replace(/```json|```/g, '').trim()) } catch { parsed = {} }
     return NextResponse.json({ success: true, data: { companyName: parsed.companyName || title.split('|')[0].trim() || '', voiceDescription: parsed.voiceDescription || '', targetAudience: parsed.targetAudience || '', productsServices: parsed.productsServices || '', keyDifferentiators: parsed.keyDifferentiators || '', primaryGoals: parsed.primaryGoals || '', toneKeywords: parsed.toneKeywords || '', contentPillars: parsed.contentPillars || '', preferredPlatforms: 'X,LinkedIn,Instagram,Email' } })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Brand analysis error:', error)
+    const err = error instanceof Error ? error : new Error('Could not analyze the website')
+    const errCode = typeof error === 'object' && error !== null && 'code' in error ? String(error.code) : ''
     let message = 'Could not analyze the website. Please fill the form manually.'
-    if (error.message?.includes('Invalid URL') || error.code === 'ERR_INVALID_URL') message = 'Invalid website URL. Please include https:// or use a valid domain (e.g. example.com)'
-    else if (error.message?.includes('Failed to fetch')) message = 'Could not reach that website. Please check the URL or try again later.'
-    else if (error.message?.includes('xAI API error')) message = error.message
+    if (err.message.includes('Invalid URL') || errCode === 'ERR_INVALID_URL') message = 'Invalid website URL. Please include https:// or use a valid domain (e.g. example.com)'
+    else if (err.message.includes('Failed to fetch')) message = 'Could not reach that website. Please check the URL or try again later.'
+    else if (err.message.includes('xAI API error')) message = err.message
     return NextResponse.json({ error: message }, { status: 400 })
   }
 }

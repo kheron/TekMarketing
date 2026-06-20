@@ -17,6 +17,12 @@ export const DALLE3_SIZES = { square: "1024x1024", landscape: "1792x1024", portr
 export const GROK_ASPECT_RATIOS = { square: "1:1", landscape: "16:9", portrait: "9:16" } as const;
 export const IMAGE_COST_ESTIMATES = { "dall-e-3": 0.04, "gemini-2.0-flash-preview-image-generation": 0.03, "grok-imagine-image-quality": 0.05, "grok-imagine-image": 0.02 };
 
+export function getImageCostEstimate(model: string, fallback = 0.04): number {
+  return model in IMAGE_COST_ESTIMATES
+    ? IMAGE_COST_ESTIMATES[model as keyof typeof IMAGE_COST_ESTIMATES]
+    : fallback;
+}
+
 export function getImageProviderLabel(provider: AIProvider): string | null {
   if (!supportsImageGeneration(provider)) return null;
   return IMAGE_PROVIDER_CONFIG[provider as keyof typeof IMAGE_PROVIDER_CONFIG].label;

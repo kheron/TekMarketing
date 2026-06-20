@@ -14,10 +14,31 @@ import {
 import { formatDistanceToNow } from 'date-fns'
 import { toast } from 'sonner'
 
+interface ActivityLogDetails {
+  reasoning?: string
+  trigger?: string
+}
+
+interface ActivityLogItem {
+  id: string
+  type: string
+  summary: string
+  timestamp: string
+  details?: ActivityLogDetails | null
+}
+
+interface AgentRunSummary {
+  id: string
+  summary: string | null
+  startedAt: string
+  completedAt: string | null
+  status: string
+}
+
 interface DashboardData {
-  recentLogs: any[]
+  recentLogs: ActivityLogItem[]
   pendingCount: number
-  latestRun: any
+  latestRun: AgentRunSummary | null
   hasBrand: boolean
 }
 
@@ -206,7 +227,7 @@ export default function TekMarketingDashboard() {
           <div className="card p-2">
             {data.recentLogs.length > 0 ? (
               <div className="divide-y divide-[#27272a]">
-                {data.recentLogs.map((log: any) => (
+                {data.recentLogs.map((log) => (
                   <ActivityItem key={log.id} log={log} />
                 ))}
               </div>
@@ -307,7 +328,7 @@ export default function TekMarketingDashboard() {
   )
 }
 
-function ActivityItem({ log }: { log: any }) {
+function ActivityItem({ log }: { log: ActivityLogItem }) {
   const time = formatDistanceToNow(new Date(log.timestamp), { addSuffix: true })
 
   const typeConfig: Record<string, { label: string; color: string }> = {

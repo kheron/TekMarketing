@@ -3,7 +3,7 @@ import type { AIProvider } from "@/lib/agent/types";
 import {
   DALLE3_SIZES,
   GROK_ASPECT_RATIOS,
-  IMAGE_COST_ESTIMATES,
+  getImageCostEstimate,
   IMAGE_PROVIDER_CONFIG,
   type ImageAspectRatio,
 } from "@/lib/constants/image-generation";
@@ -104,7 +104,7 @@ async function generateOpenAIImage({
     },
     provider: "openai",
     model,
-    estimatedCostUsd: IMAGE_COST_ESTIMATES[model] ?? 0.04,
+    estimatedCostUsd: getImageCostEstimate(model),
   };
 }
 
@@ -151,7 +151,7 @@ async function generateGoogleImage({
       image: { base64: inline.data, mimeType },
       provider: "google",
       model,
-      estimatedCostUsd: IMAGE_COST_ESTIMATES[model] ?? 0.03,
+      estimatedCostUsd: getImageCostEstimate(model, 0.03),
     };
   }
 
@@ -200,7 +200,7 @@ async function generateXAIImage({
       },
       provider: "xai",
       model,
-      estimatedCostUsd: IMAGE_COST_ESTIMATES[model] ?? 0.05,
+      estimatedCostUsd: getImageCostEstimate(model, 0.05),
     };
   }
 
@@ -222,7 +222,7 @@ async function generateXAIImage({
       },
       provider: "xai",
       model,
-      estimatedCostUsd: IMAGE_COST_ESTIMATES[model] ?? 0.05,
+      estimatedCostUsd: getImageCostEstimate(model, 0.05),
     };
   }
 

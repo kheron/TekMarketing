@@ -17,10 +17,11 @@ export async function POST(
     const updated = await regenerateContentWithFeedback(id, feedback)
 
     return NextResponse.json({ success: true, item: updated })
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Regenerate failed:', error)
+    const message = error instanceof Error ? error.message : 'Failed to regenerate content'
     return NextResponse.json(
-      { error: error.message || 'Failed to regenerate content' },
+      { error: message },
       { status: 500 }
     )
   }

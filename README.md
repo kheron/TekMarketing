@@ -10,7 +10,7 @@
 
 **Strategic AI marketing that plans, generates, and proposes — with human approval on every publish.**
 
-[Product](https://tekhero.us/tekmarketing) · [Live Demo](#live-demo) · [Quick Start](#quick-start-personal--non-commercial) · [Commercial Licensing](COMMERCIAL.md) · [Deployment](DEPLOYMENT.md)
+[Product](https://tekhero.us/tekmarketing) · [Demo App](https://app.tekhero.us) · [Quick Start](#quick-start-personal--non-commercial) · [Commercial Licensing](COMMERCIAL.md) · [Deployment](DEPLOYMENT.md)
 
 ---
 

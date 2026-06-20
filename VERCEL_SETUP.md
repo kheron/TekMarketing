@@ -27,7 +27,7 @@ One-time setup checklist. DNS is in Cloudflare; the marketing site stays on Clou
 | `DATABASE_URL` | Neon pooled connection string | Production, Preview |
 | `SETTINGS_ENCRYPTION_KEY` | 64-char hex (generate once, keep stable) | Production, Preview |
 | `TEKHERO_OPEN_CORE_ACK` | `true` | Production (demo) |
-| `NEXT_PUBLIC_TEKHERO_PRODUCT_URL` | `https://tekhero.us/tekmarketing` | Production, Preview |
+| `NEXT_PUBLIC_TEKHERO_PRODUCT_URL` | `https://tekhero.us/projects/tekmarketing` | Production, Preview |
 | `XAI_API_KEY` | Your xAI key (for live agent runs) | Production |
 | `TEKHERO_LICENSE_KEY` | `TKM-...` when commercial | Optional |
 
@@ -91,7 +91,7 @@ Or use Neon SQL editor — seed is optional; app works without it.
 
 - https://app.tekhero.us — dashboard loads
 - https://app.tekhero.us/api/config — `licenseTier: "open-core-ack"`
-- https://tekhero.us/tekmarketing — "Open Demo App" links work
+- https://tekhero.us/projects/tekmarketing — "Open Demo App" links work
 - Run planning cycle (requires `XAI_API_KEY`)
 
 ---

@@ -7,10 +7,15 @@ export const TEKHERO_CONTACT_EMAIL = "info@tekhero.us";
 export const TEKHERO_COMMERCIAL_DOCS_URL =
   "https://github.com/kheron/TekMarketing/blob/main/COMMERCIAL.md";
 export const TEKHERO_GITHUB_URL = "https://github.com/kheron/TekMarketing";
-/** In-app landing page; set NEXT_PUBLIC_TEKHERO_PRODUCT_URL for external canonical URL */
+/** In-app landing; production default points to tekhero.us marketing page */
 export const TEKHERO_PRODUCT_PATH = "/tekmarketing";
+export const TEKHERO_PRODUCT_EXTERNAL_URL = "https://tekhero.us/projects/tekmarketing";
 export const TEKHERO_PRODUCT_URL =
-  process.env.NEXT_PUBLIC_TEKHERO_PRODUCT_URL ?? TEKHERO_PRODUCT_PATH;
+  process.env.NEXT_PUBLIC_TEKHERO_PRODUCT_URL ??
+  (process.env.NODE_ENV === "production"
+    ? TEKHERO_PRODUCT_EXTERNAL_URL
+    : TEKHERO_PRODUCT_PATH);
+export const TEKHERO_PRODUCT_LINK_EXTERNAL = TEKHERO_PRODUCT_URL.startsWith("http");
 
 export type TekheroEdition = "open-core" | "commercial";
 

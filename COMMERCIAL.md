@@ -102,7 +102,7 @@ Personal non-commercial production (e.g. portfolio demo):
 TEKHERO_OPEN_CORE_ACK=true
 ```
 
-**Product landing page:** [/tekmarketing](/tekmarketing) — deploy at `https://tekhero.us/tekmarketing` with `NEXT_PUBLIC_TEKHERO_PRODUCT_URL=https://tekhero.us/tekmarketing`
+**Product landing page:** [tekhero.us/projects/tekmarketing](https://tekhero.us/projects/tekmarketing) — set `NEXT_PUBLIC_TEKHERO_PRODUCT_URL=https://tekhero.us/projects/tekmarketing` on Vercel
 
 ---
 

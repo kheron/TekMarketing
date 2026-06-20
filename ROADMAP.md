@@ -18,12 +18,12 @@
 - [x] Docker self-hosted demo
 - [x] CI pipeline (lint, test, build)
 - [x] Open Core licensing + commercial docs
+- [x] Public Vercel demo (`app.tekhero.us`) + production seed
 
 ---
 
 ## In Progress
 
-- [ ] Public Vercel demo deployment
 - [ ] README screenshots / GIF walkthrough
 - [ ] Expanded Vitest coverage (orchestrator, generate-episode)
 

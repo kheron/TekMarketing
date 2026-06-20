@@ -10,7 +10,7 @@
 
 **Strategic AI marketing that plans, generates, and proposes — with human approval on every publish.**
 
-[Product](https://tekhero.us/tekmarketing) · [Demo App](https://app.tekhero.us) · [Quick Start](#quick-start-personal--non-commercial) · [Commercial Licensing](COMMERCIAL.md) · [Deployment](DEPLOYMENT.md)
+[Product](https://tekhero.us/projects/tekmarketing) · [Demo App](https://app.tekhero.us) · [Quick Start](#quick-start-personal--non-commercial) · [Commercial Licensing](COMMERCIAL.md) · [Deployment](DEPLOYMENT.md)
 
 ---
 
@@ -50,7 +50,7 @@ TekMarketing is TEKHERO's open-core answer — production-grade agent engineerin
 
 ## Live Demo
 
-**Public demo:** _Deploy in progress — [self-host instructions](DEPLOYMENT.md) available now._
+**Public demo:** **[app.tekhero.us](https://app.tekhero.us)** — TekFlow Analytics brand with pending approvals pre-loaded. Add an AI provider key in Settings to run a live planning cycle.
 
 Explore locally without API keys:
 
@@ -235,7 +235,7 @@ See **[ROADMAP.md](ROADMAP.md)** for open-core vs. commercial feature split.
 <p align="center">
   <strong>Built by <a href="https://tekhero.us">Korey Heron</a> / <a href="https://tekhero.us">TEKHERO</a></strong><br>
   <a href="https://tekhero.us">tekhero.us</a> ·
-  <a href="/tekmarketing">Product</a> ·
+  <a href="https://tekhero.us/projects/tekmarketing">Product</a> ·
   <a href="https://github.com/kheron/TekMarketing">GitHub</a> ·
   <a href="COMMERCIAL.md">Commercial</a>
 </p>

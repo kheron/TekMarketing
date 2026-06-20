@@ -38,7 +38,7 @@
 - [ ] Backups enabled on Postgres
 - [ ] `TELEMETRY_OPT_IN` set per org policy (default: off)
 - [ ] `TEKHERO_LICENSE_KEY` (commercial) **or** `TEKHERO_OPEN_CORE_ACK=true` (personal demo only)
-- [ ] `NEXT_PUBLIC_TEKHERO_PRODUCT_URL=https://tekhero.us/tekmarketing` when serving landing at tekhero.us
+- [ ] `NEXT_PUBLIC_TEKHERO_PRODUCT_URL=https://tekhero.us/projects/tekmarketing` when serving landing at tekhero.us
 
 ---
 

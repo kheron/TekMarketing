@@ -4,7 +4,8 @@ import { z } from 'zod'
 import { prisma } from '@/lib/db/prisma'
 import { brandContextToBusinessProfile } from '@/lib/agent/brand-adapter'
 import { regenerateEpisodeSection } from '@/lib/agent/regenerate-episode'
-import { AIProviderSchema, ContentEpisodePayloadSchema, SocialPlatformSchema } from '@/lib/agent/types'
+import { normalizeStoredPackage } from '@/lib/agent/sanitize-episode'
+import { AIProviderSchema, SocialPlatformSchema, type SocialPlatform } from '@/lib/agent/types'
 import { getActiveProvider } from '@/lib/settings/api-key'
 
 const RequestSchema = z.object({ packageId: z.string(), platform: SocialPlatformSchema, feedback: z.string().min(1), provider: AIProviderSchema.optional() })
@@ -21,7 +22,15 @@ export async function POST(request: NextRequest) {
     if (!pkg) return NextResponse.json({ error: 'Package not found' }, { status: 404 })
     const provider = parsed.data.provider ?? (await getActiveProvider())
     const business = brandContextToBusinessProfile(pkg.brandContext)
-    const currentPayload = ContentEpisodePayloadSchema.parse({ platforms: pkg.platforms as string[], strategyNote: pkg.strategyNote, agentReasoning: pkg.agentReasoning, content: pkg.content })
+    const currentPayload = normalizeStoredPackage(
+      {
+        platforms: pkg.platforms as SocialPlatform[],
+        strategyNote: pkg.strategyNote,
+        agentReasoning: pkg.agentReasoning,
+        content: pkg.content,
+      },
+      pkg.brandContext.visualStyle || 'clean, professional'
+    )
     const result = await regenerateEpisodeSection({ provider, business, topic: pkg.topic, platform: parsed.data.platform, currentPayload, feedback: parsed.data.feedback })
     const updated = await prisma.contentPackage.update({ where: { id: pkg.id }, data: { strategyNote: result.payload.strategyNote, agentReasoning: result.payload.agentReasoning, content: result.payload.content } })
     await prisma.activityLog.create({ data: { type: 'CONTENT_REGENERATED', summary: `Regenerated ${parsed.data.platform} content with feedback`, details: { packageId: pkg.id, platform: parsed.data.platform } } })

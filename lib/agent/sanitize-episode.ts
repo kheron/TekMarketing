@@ -73,6 +73,46 @@ function ensureYouTube(raw: unknown) {
 
 function ensureSocialPost(raw: unknown) {
   const o = (raw as Record<string, unknown>) || {};
+
+  // Legacy seed / simplified AI shape: { thread: string[] }
+  if (Array.isArray(o.thread) && !o.body) {
+    const lines = o.thread.map(String).filter(Boolean);
+    const hashtags = Array.isArray(o.hashtags)
+      ? o.hashtags.map(String).filter(Boolean)
+      : ["content", "business", "tips"];
+    return {
+      format: "THREAD" as const,
+      hook: String(o.hook || lines[0] || "Thread:"),
+      body: lines.join("\n\n"),
+      hashtags:
+        hashtags.length >= 3
+          ? hashtags.slice(0, 10)
+          : [...hashtags, "news", "tips"].slice(0, 3),
+      suggestedMedia: o.suggestedMedia ? String(o.suggestedMedia) : undefined,
+      imagePrompt: o.imagePrompt ? String(o.imagePrompt) : undefined,
+      cta: o.cta ? String(o.cta) : undefined,
+    };
+  }
+
+  // Legacy seed shape: { post: string }
+  if (typeof o.post === "string" && !o.body) {
+    const hashtags = Array.isArray(o.hashtags)
+      ? o.hashtags.map(String).filter(Boolean)
+      : ["content", "business", "tips"];
+    return {
+      format: "POST" as const,
+      hook: String(o.hook || o.post.split(/[.\n]/)[0]?.slice(0, 120) || "Insight:"),
+      body: String(o.post),
+      hashtags:
+        hashtags.length >= 3
+          ? hashtags.slice(0, 10)
+          : [...hashtags, "news", "tips"].slice(0, 3),
+      suggestedMedia: o.suggestedMedia ? String(o.suggestedMedia) : undefined,
+      imagePrompt: o.imagePrompt ? String(o.imagePrompt) : undefined,
+      cta: o.cta ? String(o.cta) : undefined,
+    };
+  }
+
   const format = ["POST", "THREAD", "CAROUSEL"].includes(String(o.format))
     ? (String(o.format) as "POST" | "THREAD" | "CAROUSEL")
     : "POST";
@@ -90,6 +130,27 @@ function ensureSocialPost(raw: unknown) {
   };
 }
 
+function resolveVideoScriptRaw(raw: Record<string, unknown>): unknown {
+  if (typeof raw.script === "string") {
+    return {
+      hook: String(raw.hook || "Here's what you need to know."),
+      body: raw.script,
+      cta: String(raw.cta || "Learn more in the description."),
+    };
+  }
+  if (raw.script && typeof raw.script === "object") {
+    return raw.script;
+  }
+  if (typeof raw.hook === "string" || typeof raw.body === "string") {
+    return {
+      hook: String(raw.hook || "Here's what you need to know."),
+      body: String(raw.body || raw.script || "Content for this topic."),
+      cta: String(raw.cta || "Learn more in the description."),
+    };
+  }
+  return raw.script;
+}
+
 function sanitizePlatformContent(
   content: Record<string, unknown>,
   platforms: SocialPlatform[],
@@ -104,7 +165,7 @@ function sanitizePlatformContent(
     switch (platform) {
       case "youtube_short":
         result.youtube_short = {
-          script: ensureScript(raw?.script),
+          script: ensureScript(resolveVideoScriptRaw(raw)),
           imagePrompts: ensureScenePrompts(
             raw?.imagePrompts,
             4,
@@ -200,6 +261,27 @@ function sanitizePlatformContent(
   }
 
   return result;
+}
+
+/** Normalize content loaded from DB (including legacy seed shapes) for UI and regeneration. */
+export function normalizeStoredPackage(
+  pkg: {
+    platforms: SocialPlatform[] | string[];
+    strategyNote: string;
+    agentReasoning: string;
+    content: unknown;
+  },
+  visualStyle = "clean, professional"
+): ContentEpisodePayload {
+  return sanitizeEpisodePayload(
+    {
+      strategyNote: pkg.strategyNote,
+      agentReasoning: pkg.agentReasoning,
+      content: pkg.content,
+    },
+    pkg.platforms as SocialPlatform[],
+    visualStyle
+  );
 }
 
 export function sanitizeEpisodePayload(

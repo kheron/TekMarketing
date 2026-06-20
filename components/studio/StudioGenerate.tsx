@@ -55,7 +55,11 @@ export function StudioGenerate() {
 
   const loadPackage = useCallback(async (id: string) => {
     const res = await fetch(`/api/packages/${id}`)
-    if (!res.ok) return
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      toast.error(data.error || 'Could not load package')
+      return
+    }
     const data = await res.json()
     const pkg = data.package as SavedPackage
     setBrandId(pkg.businessId)

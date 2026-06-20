@@ -124,27 +124,39 @@ function PlatformPanel({
 
   if (platform === 'youtube_short') {
     const yt = content as NonNullable<typeof payload.content.youtube_short>
-    const script = `${yt.script.hook}\n\n${yt.script.body}\n\n${yt.script.cta}`
+    const scriptObj =
+      typeof yt.script === 'string'
+        ? { hook: '', body: yt.script, cta: '' }
+        : yt.script
+    const script = scriptObj
+      ? `${scriptObj.hook}\n\n${scriptObj.body}\n\n${scriptObj.cta}`
+      : copyText
     return (
       <div className="space-y-4">
         <CopyButton text={copyText} label={getPlatformCopyLabel(platform)} variant="primary" />
-        <div>
-          <p className="text-xs uppercase tracking-widest text-[#71717a] mb-2">Title options</p>
-          <div className="flex flex-wrap gap-2">
-            {yt.youtube.titleOptions.map((title) => (
-              <span
-                key={title}
-                className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-lg bg-[#27272a] border border-[#3f3f46]"
-              >
-                {title}
-                <CopyButton text={title} variant="ghost" iconOnly />
-              </span>
-            ))}
+        {yt.youtube?.titleOptions?.length ? (
+          <div>
+            <p className="text-xs uppercase tracking-widest text-[#71717a] mb-2">Title options</p>
+            <div className="flex flex-wrap gap-2">
+              {yt.youtube.titleOptions.map((title) => (
+                <span
+                  key={title}
+                  className="inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-lg bg-[#27272a] border border-[#3f3f46]"
+                >
+                  {title}
+                  <CopyButton text={title} variant="ghost" iconOnly />
+                </span>
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null}
         <CopyBlock label="Script" content={script} />
-        <CopyBlock label="Description" content={yt.youtube.description} />
-        <CopyButton text={yt.youtube.tags.join(', ')} label="Copy tags" variant="secondary" />
+        {yt.youtube?.description ? (
+          <CopyBlock label="Description" content={yt.youtube.description} />
+        ) : null}
+        {yt.youtube?.tags?.length ? (
+          <CopyButton text={yt.youtube.tags.join(', ')} label="Copy tags" variant="secondary" />
+        ) : null}
       </div>
     )
   }

@@ -134,3 +134,14 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Local SQLite databases
+*.db
+*.db-journal
+
+# Cursor / MCP local artifacts
+mcps/
+terminals/
+.chunk-compact-*.json
+.mcp-push-*.json
+.push-result-placeholder.txt

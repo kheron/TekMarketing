@@ -1,7 +1,0 @@
----
-pid: 18844
-cwd: "C:\Users\korey\Documents\APPS\TekMarketing"
-command: "$input = \"protocol=https`nhost=github.com`nusername=Tek-hero`n`n\"; try { $input | git credential fill } catch { $_ }"
-started_at: 2026-06-19T20:38:46.391Z
-running_for_ms: 35005    
----
